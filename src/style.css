@@ -15,112 +15,112 @@ header {
   width: 100%;
   background-color: rgb(20, 20, 187);
   height: 6vw;
-  background-image: linear-gradient(to bottom, blue, 60%, white);
+  background-image: linear-gradient(to bottom, blue, 0.5%, white);
 }
 
 .large {
   margin-left: 1vw;
-  color: rgb(240, 234, 234);
+  color: rgb(18, 48, 185);
   font-size: 4vw;
   font-weight: 900;
   letter-spacing: 2px;
   margin-right: 1vw;
-  opacity: 0.8;
-  text-shadow: 2px 2px rgb(135, 135, 245);
+ 
+  text-shadow: 2px 2px rgb(255, 255, 255);
 }
 
-.nazev {
-  color: black;
-  text-shadow: 2px 2px white;
-}
+  .nazev {
+    color: black;
+    text-shadow: 2px 2px white;
+  
+  }
 
-#main {
-  display: block;
+  #main {
+    display: block;
 
-  margin: 0 auto;
-  height: 94vw;
-  background-color: bisque;
-  width: 90vw;
-}
+    margin: 0 auto;
+    height: 94vw;
+    width: 90vw;
+  }
 
-#controls {
-  display: flex;
-  justify-content: space-around;
+  #controls {
+    display: flex;
+    justify-content: space-around;
 
-  background-color: aliceblue;
-  width: 90%;
-  margin: 0 auto;
-  height: 5vw;
-}
+    width: 90%;
+    margin: 0 auto;
+    height: 5vw;
+  }
 
-.input {
-  margin-top: 1vw;
-  margin-left: 5vw;
-  padding: 0 12px;
-  display: inline-block;
-  font-size: 2vw;
-  height: 3vw;
-  width: 80%;
-  border: 1, 5px solid #008cba;
-  border-radius: 4px;
-}
-
-.button {
-  margin-top: 1vw;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: rgb(74, 74, 252);
-  border: none;
-  color: #ffffff;
-  text-align: center;
-  font-size: 2vw;
-  padding: 5px;
-  width: 8vw;
-  transition: all 0.5s;
-  cursor: pointer;
-  height: 2.3vw;
-  font-weight: 600;
-}
-
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.button:hover span {
-  padding-right: 25px;
-}
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-.button:active {
-  transform: scale(1.2);
-  background: #2c3e50;
-}
-
-#log {
-  background-color: white;
-  height: 94vw;
-  border: 1px solid black;
-  max-width: 100%;
-}
-
-@media screen and (min-width: 1200px) {
-  .button,
   .input {
-    font-size: 25px;
+    margin-top: 1vw;
+    margin-left: 5vw;
+    padding: 0 12px;
+    display: inline-block;
+    font-size: 2vw;
+    height: 3vw;
+    width: 80%;
+    border: 1, 5px solid #008cba;
+    border-radius: 4px;
+  }
+
+  .button {
+    margin-top: 1vw;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: rgb(74, 74, 252);
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 2vw;
+    padding: 5px;
+    width: 8vw;
+    transition: all 0.5s;
+    cursor: pointer;
+    height: 2.3vw;
+    font-weight: 600;
+  }
+
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  .button:hover span {
+    padding-right: 25px;
+  }
+
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  .button:active {
+    transform: scale(1.2);
+    background: #2c3e50;
+  }
+
+  #log {
+    background-color: white;
+    height: 70vh;
+    border: 1px solid black;
+    max-width: 100%;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .button,
+    .input {
+      font-size: 25px;
+    }
   }
 }
