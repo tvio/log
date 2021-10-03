@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Martel Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  width: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgb(20, 20, 187);
+  height: 6vw;
+  background-image: linear-gradient(to bottom, blue, 60%, white);
+}
+
+.large {
+  margin-left: 1vw;
+  color: rgb(240, 234, 234);
+  font-size: 4vw;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-right: 1vw;
+  opacity: 0.8;
+  text-shadow: 2px 2px rgb(135, 135, 245);
+}
+
+.nazev {
+  color: black;
+  text-shadow: 2px 2px white;
+}
+
+#main {
+  margin: 0 auto;
+  height: 94vw;
+  background-color: bisque;
+  margin: 0.1vw;
+  width: 94%;
+}
+
+#controls {
+  justify-content: space-around;
+
+  background-color: aliceblue;
+  width: 90%;
+  margin: 0 auto;
+  height: 5vw;
+}
+
+.input {
+  margin-left: 5vw;
+  padding: 0 12px;
+  display: inline-block;
+  font-size: 2vw;
+  height: 4vw;
+  width: 80%;
+  border: 1, 5px solid #008cba;
+  border-radius: 4px;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: rgb(74, 74, 252);
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1, 5vw;
+  padding-top: 5px;
+  width: 10vw;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  height: 3.5vw;
+  font-weight: 600;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.button:active {
+  transform: scale(1.2);
+  background: #2c3e50;
+}
+
+#log {
+  background-color: white;
+  height: 94vw;
+  border: 1px solid black;
+}
