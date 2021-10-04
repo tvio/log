@@ -47,7 +47,7 @@ const log = {
    // const xx = await console.log('hoho')
     const text = await log.nactiSoubor ('access')
     const zpracovano = await log.zpracuj(text)
-    const konec = await log.zobraz(zpracovano)
+    await log.zobraz(zpracovano)
  }
  
   }
