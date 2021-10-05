@@ -1,6 +1,8 @@
 'use strict'
 const log = {
     pocetTag : document.querySelector('.pocet'),
+    inputTag : document.querySelector('.input'),
+    hledatButtonTag : document.querySelector('.button'),
     async nactiSoubor(typ) {
     let res,text
     try {
@@ -27,7 +29,7 @@ const log = {
      
 
   },
-  zobraz (split) {
+  zobraz (filtered) {
     let lpocet = log.pocetTag.value==0 ? 43 : document.querySelector('.pocet').value
     let divLog = document.querySelector('#log')
     console.log('vloz')
@@ -41,25 +43,40 @@ const log = {
   zmenitPoceRadek (){
       this.log = document.querySelector('.pocet')
       console.log(this.log)
-    },    
+    }, 
+  hledat (split,co){
+        return filtered =  split.filter( radek => radek.includes(co) )
+        
+    }   
+    ,
    async  runx  () {
   // console.log(log.pocet)
    // const xx = await console.log('hoho')
     const text = await log.nactiSoubor ('access')
     const zpracovano = await log.zpracuj(text)
-    await log.zobraz(zpracovano)
+    const filtered = await log.hledat(zpracovano,'404')
+    await log.zobraz(filtered)
  }
  
   }
 //na zacatku pri nacteni staranky nacti soubor
 window.onload = (()=>log.runx())    
  // nacti soubor pri zmene poctu radku na strance
-log.pocetTag.addEventListener('change',()=>{
-  console.log(log.pocet)
-  log
-  log.runx()
-})
+// log.pocetTag.addEventListener('change',()=>{
+//    log.runx()
+// })
+
+// log.hledatButtonTag('click',e => {
+//   if (inputTag.value.length >=3)
+//       // log.hledat(inputTag.value)
+//       console.log('klik'      
+//       )
+//       else{
+//         alert('Prosim vyplněte alespoň tři znaky')
+//       }
+// })
  
+
 
 
 // let part = log.nactiSoubor('access').then((text)=>{log.zpracovani(text)})
