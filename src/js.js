@@ -53,11 +53,11 @@ const log = {
         filtered  = split.filter( radek => radek.toLowerCase().includes(co.toLowerCase(co)) )
       } else {
         console.log('multi filtr')
-      hledamVic = co.split(' ')
+      hledamVic = co.toLowerCase().split(' ')
       console.log(hledamVic)
        filtered = split.filter ((radek) => {
         let partok = 0
-          let res
+        // hledam pro kazde slovo v inputu hledani
          hledamVic.forEach((lco)=>{
                if ( radek.toLowerCase().includes(lco)){
               console.log('je to ok')  
@@ -65,24 +65,24 @@ const log = {
               console.log(partok)
               console.log(hledamVic.length)
             }
-             //console.log(partok)
+              })
+             //pokud sedi na vsechny slova tak vratim do filter funkce z callback true
               if (partok == hledamVic.length){
                 console.log('sedi vsechny')
-               res = radek
+                return true
               } else {
                
-                res =  false
+                return false
               }
-            })
-            console.log (res)
-            return res
-         
-          })  
-    }
-    console.log('filter')
+            }
+          )
+        }
+          console.log('filter')
     console.log(filtered)
     return filtered
+    //vratim kdyz nic nehledam tak beze zmeny
   }else{
+    return split
   }
   } ,
   hledatRun( ){
