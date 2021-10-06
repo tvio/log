@@ -30,31 +30,81 @@ const log = {
 
   },
   zobraz (filtered) {
-    let lpocet = log.pocetTag.value==0 ? 43 : document.querySelector('.pocet').value
+    ///nastaveni defautl velikost strankovani 43,pokud nemam vybrano
+    let lpocet = log.pocetTag.value==0 ? 10 : document.querySelector('.pocet').value
     let divLog = document.querySelector('#log')
     console.log('vloz')
     console.log(lpocet)
      divLog.textContent=""
     for (let i=0 ; i< lpocet;i++){
-      //console.log(split[i])
-      divLog.textContent += split[i]
+       divLog.textContent += filtered[i] +'\n'
      }
     },
   zmenitPoceRadek (){
       this.log = document.querySelector('.pocet')
       console.log(this.log)
+      
     }, 
   hledat (split,co){
-        return filtered =  split.filter( radek => radek.includes(co) )
-        
-    }   
+    let hledamVic 
+    let filtered 
+    if (this.inputTag.value.length >= 3) {
+      if (!co.includes(' ')){
+        filtered  = split.filter( radek => radek.toLowerCase().includes(co.toLowerCase(co)) )
+      } else {
+        console.log('multi filtr')
+      hledamVic = co.split(' ')
+      console.log(hledamVic)
+       filtered = split.filter ((radek) => {
+        let partok = 0
+          let res
+         hledamVic.forEach((lco)=>{
+               if ( radek.toLowerCase().includes(lco)){
+              console.log('je to ok')  
+              partok++
+              console.log(partok)
+              console.log(hledamVic.length)
+            }
+             //console.log(partok)
+              if (partok == hledamVic.length){
+                console.log('sedi vsechny')
+               res = radek
+              } else {
+               
+                res =  false
+              }
+            })
+            console.log (res)
+            return res
+         
+          })  
+    }
+    console.log('filter')
+    console.log(filtered)
+    return filtered
+  }else{
+  }
+  } ,
+  hledatRun( ){
+    if (log.inputTag.value.length >=3){
+    log.runx()
+    console.log('klik')      
+    }
+    else if (log.inputTag.value.length==0){
+      log.runx()
+          }
+    else{
+      alert('Prosim vyplněte alespoň tři znaky')
+    }
+  }
     ,
    async  runx  () {
+     console.clear()
   // console.log(log.pocet)
    // const xx = await console.log('hoho')
     const text = await log.nactiSoubor ('access')
     const zpracovano = await log.zpracuj(text)
-    const filtered = await log.hledat(zpracovano,'404')
+    const filtered = await log.hledat(zpracovano,this.inputTag.value)
     await log.zobraz(filtered)
  }
  
@@ -66,15 +116,17 @@ window.onload = (()=>log.runx())
 //    log.runx()
 // })
 
-// log.hledatButtonTag('click',e => {
-//   if (inputTag.value.length >=3)
-//       // log.hledat(inputTag.value)
-//       console.log('klik'      
-//       )
-//       else{
-//         alert('Prosim vyplněte alespoň tři znaky')
-//       }
-// })
+log.hledatButtonTag.addEventListener('click',()=>{log.hledatRun()});
+log.inputTag.addEventListener('keyup',(e)=>{
+  if (e.key === 'Enter'){
+    log.hledatRun()
+  }
+} )
+log.pocetTag.addEventListener('change', ()=>{
+  log.runx();
+})
+ 
+
  
 
 
