@@ -22,7 +22,8 @@ const log = {
   },
    async zpracuj (text){
      let split
-       split =  await text.split(/\n/)
+     // pridej konec radky a udelej pole, reverse order - nejnovejsi prvni ne posleni
+       split =  await text.split(/\n/).reverse()
      // console.log('zpracovani')
      // console.log(split)
       return split
