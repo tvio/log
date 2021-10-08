@@ -5,6 +5,7 @@ const log = {
   inputTag: document.querySelector('.input'),
   hledatButtonTag: document.querySelector('.button'),
   monitorPryc: ['zabbix', 'mondocucist'],
+  divLog: document.querySelector('#log'),
   async nactiSoubor(typ) {
     let res, text
     try {
@@ -50,17 +51,29 @@ const log = {
     ///nastaveni defautl velikost strankovani 43,pokud nemam vybrano
     let lpocet =
       log.pocetTag.value == 0 ? 43 : document.querySelector('.pocet').value
-    let divLog = document.querySelector('#log')
+
     console.log(lpocet)
-    divLog.textContent = ''
+    this.divLog.textContent = ''
+    //mrknu jestli mam vykresil pocet radek, nebo pocet z hledani,
+    // pokud mam vic radek nez najdu tak kresli undefined
     //check jestli pole po hledani neni prazdne
+    let vyssi = () => {
+      if (lpocet > filtered.length) {
+        return filtered.length
+      } else {
+        return lpocet
+      }
+    }
+    console.log(vyssi)
     if (filtered.length > 0) {
-      for (let i = 0; i < lpocet; i++) {
-        divLog.textContent += filtered[i] + '\n'
+      for (let i = 0; i < vyssi(); i++) {
+        this.divLog.textContent += filtered[i] + '\n'
       }
     }
   },
-
+  obarvit() {
+    div
+  },
   zmenitPoceRadek() {
     this.log = document.querySelector('.pocet')
     console.log(this.log)
