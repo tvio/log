@@ -42,22 +42,25 @@ const log = {
         } else return true
       }
     })
-    console.log(monitor)
+    //console.log(monitor)
     //udelej reverse order, prvni je posledni v cas
     return monitor.reverse()
   },
   zobraz(filtered) {
     ///nastaveni defautl velikost strankovani 43,pokud nemam vybrano
     let lpocet =
-      log.pocetTag.value == 0 ? 10 : document.querySelector('.pocet').value
+      log.pocetTag.value == 0 ? 43 : document.querySelector('.pocet').value
     let divLog = document.querySelector('#log')
-    console.log('vloz')
     console.log(lpocet)
     divLog.textContent = ''
-    for (let i = 0; i < lpocet; i++) {
-      divLog.textContent += filtered[i] + '\n'
+    //check jestli pole po hledani neni prazdne
+    if (filtered.length > 0) {
+      for (let i = 0; i < lpocet; i++) {
+        divLog.textContent += filtered[i] + '\n'
+      }
     }
   },
+
   zmenitPoceRadek() {
     this.log = document.querySelector('.pocet')
     console.log(this.log)
@@ -71,30 +74,23 @@ const log = {
           radek.toLowerCase().includes(co.toLowerCase(co))
         )
       } else {
-        console.log('multi filtr')
         hledamVic = co.toLowerCase().split(' ')
-        console.log(hledamVic)
         filtered = split.filter((radek) => {
           let partok = 0
           // hledam pro kazde slovo v inputu hledani
           hledamVic.forEach((lco) => {
             if (radek.toLowerCase().includes(lco)) {
-              console.log('je to ok')
               partok++
-              console.log(partok)
-              console.log(hledamVic.length)
             }
           })
           //pokud sedi na vsechny slova tak vratim do filter funkce z callback true
           if (partok == hledamVic.length) {
-            console.log('sedi vsechny')
             return true
           } else {
             return false
           }
         })
       }
-      console.log('filter')
       console.log(filtered)
       return filtered
       //vratim kdyz nic nehledam tak beze zmeny
