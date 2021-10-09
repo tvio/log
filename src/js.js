@@ -66,13 +66,17 @@ const log = {
     }
     console.log(vyssi)
     if (filtered.length > 0) {
+      let strong
       for (let i = 0; i < vyssi(); i++) {
-        this.divLog.textContent += filtered[i] + '\n'
+        strong = document.createElement('strong')
+        this.divLog.textContent += this.obarvit(filtered[i]) + '\n'
       }
     }
   },
-  obarvit() {
-    div
+  obarvit(radek) {
+    let radekPole = radek.split(' ')
+    radekPole[3] = `<strong>${radekPole[3]}</strong>`
+    return radekPole.join(' ')
   },
   zmenitPoceRadek() {
     this.log = document.querySelector('.pocet')
@@ -111,16 +115,7 @@ const log = {
       return split
     }
   },
-  hledatRun() {
-    if (log.inputTag.value.length >= 3) {
-      log.runx()
-      console.log('klik')
-    } else if (log.inputTag.value.length == 0) {
-      log.runx()
-    } else {
-      alert('Prosim vyplněte alespoň tři znaky')
-    }
-  },
+
   async runx() {
     console.clear()
     // console.log(log.pocet)
