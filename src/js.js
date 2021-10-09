@@ -15,7 +15,6 @@ const log = {
         res = await fetch('error.log')
       }
       text = await res.text()
-      // console.log(text)
       return text
     } catch (e) {
       console.log(e)
@@ -53,7 +52,7 @@ const log = {
       log.pocetTag.value == 0 ? 43 : document.querySelector('.pocet').value
 
     console.log(lpocet)
-    this.divLog.textContent = ''
+    this.divLog.innerHTML = ''
     //mrknu jestli mam vykresil pocet radek, nebo pocet z hledani,
     // pokud mam vic radek nez najdu tak kresli undefined
     //check jestli pole po hledani neni prazdne
@@ -64,18 +63,28 @@ const log = {
         return lpocet
       }
     }
-    console.log(vyssi)
     if (filtered.length > 0) {
       let strong
-      for (let i = 0; i < vyssi(); i++) {
+      //TODO - proc mam prvni zaznam pole empty string, davam od 1 teda?
+      for (let i = 1; i < vyssi(); i++) {
         strong = document.createElement('strong')
-        this.divLog.textContent += this.obarvit(filtered[i]) + '\n'
+        //this.divLog.textContent += this.obarvit(filtered[i]) + '\n'
+        this.divLog.innerHTML += this.obarvit(filtered[i]) + '\n'
       }
     }
   },
   obarvit(radek) {
     let radekPole = radek.split(' ')
-    radekPole[3] = `<strong>${radekPole[3]}</strong>`
+    //console.log(radekPole)
+    radekPole[3] = `<span class="cas">${radekPole[3]}</span>`
+    if (/40+/.test(radekPole[8])) {
+      radekPole[8] = `<span class="red">${radekPole[8]}</span>`
+    } else if (/20+/.test(radekPole[8])) {
+      radekPole[8] = `<span class="green">${radekPole[8]}</span>`
+    } else if (/50+/.test(radekPole[8])) {
+      radekPole[8] = `<span class="ultrared">${radekPole[8]}</span>`
+    }
+
     return radekPole.join(' ')
   },
   zmenitPoceRadek() {
@@ -115,14 +124,25 @@ const log = {
       return split
     }
   },
+  hledatRun() {
+    if (log.inputTag.value.length >= 3) {
+      log.runx()
+      console.log('klik')
+    } else if (log.inputTag.value.length == 0) {
+      log.runx()
+    } else {
+      alert('Prosim vyplněte alespoň tři znaky')
+    }
+  },
 
   async runx() {
     console.clear()
-    // console.log(log.pocet)
-    // const xx = await console.log('hoho')
     const text = await log.nactiSoubor('access')
+    //console.log(text)
     const zpracovano = await log.zpracuj(text)
+    //console.log(zpracovano)
     const filtered = await log.hledat(zpracovano, this.inputTag.value)
+    //console.log(filtered)
     await log.zobraz(filtered)
   },
 }
