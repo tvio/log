@@ -97,16 +97,27 @@ const log = {
       console.log(coPole)
       console.log(radekPole)
       let idxHlEl
-      idxHlEl = radekPole.findIndex((e) =>
-        coPole.forEach((e2) => e2.includes(e))
-      )
+
+      idxHlEl = radekPole.findIndex((e) => {
+        let part = false
+        console.log('e', e)
+        coPole.forEach((e2) => {
+          console.log('e2', e2)
+          part = e2.includes(e)
+          console.log('part', part)
+        })
+        if (part) {
+          return true
+        }
+      })
       console.log('hledam obarveno')
       console.log(idxHlEl)
+      radekPole[idxHlEl] = `<span class="hledat">${radekPole[idxHlEl]}</span>`
     }
 
     return radekPole.join(' ')
   },
-  zmenitPoceRadek() {
+  zmenitPocetRadek() {
     this.log = document.querySelector('.pocet')
     console.log(this.log)
   },
@@ -153,7 +164,6 @@ const log = {
       alert('Prosim vyplněte alespoň tři znaky')
     }
   },
-
   async runx() {
     console.clear()
     const text = await log.nactiSoubor('access')
