@@ -1,4 +1,10 @@
 'use strict'
+// TODO - obarvit hledani, automaticke nacitani
+// ocisteni
+//refactoring, zkusit worker?
+// production veze
+//roztrhnout na objekt kreslit barvit a ostatni, mozna hledat
+
 console.clear()
 const log = {
   pocetTag: document.querySelector('.pocet'),
@@ -84,6 +90,19 @@ const log = {
     } else if (/50+/.test(radekPole[8])) {
       radekPole[8] = `<span class="ultrared">${radekPole[8]}</span>`
     }
+    //pokud hledam, tak chci obarvit hledani
+    let co = this.inputTag.value
+    if (co) {
+      let coPole = co.split(' ')
+      console.log(coPole)
+      console.log(radekPole)
+      let idxHlEl
+      idxHlEl = radekPole.findIndex((e) =>
+        coPole.forEach((e2) => e2.includes(e))
+      )
+      console.log('hledam obarveno')
+      console.log(idxHlEl)
+    }
 
     return radekPole.join(' ')
   },
@@ -117,7 +136,7 @@ const log = {
           }
         })
       }
-      console.log(filtered)
+      //console.log(filtered)
       return filtered
       //vratim kdyz nic nehledam tak beze zmeny
     } else {
