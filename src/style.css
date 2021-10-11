@@ -170,7 +170,7 @@ header {
   animation: blinker 1s linear infinite;
 }
 .hledat {
-  color: sandybrown;
+  color: rgb(242, 113, 0);
   font-weight: 900;
 }
 @keyframes blinker {

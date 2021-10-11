@@ -12,6 +12,8 @@ const log = {
   hledatButtonTag: document.querySelector('.button'),
   monitorPryc: ['zabbix', 'mondocucist'],
   divLog: document.querySelector('#log'),
+  posledni : 'zde bude posledni radek pro nacitani novych aktualizaci',
+  aktualizace : true,
   async nactiSoubor(typ) {
     let res, text
     try {
@@ -27,14 +29,37 @@ const log = {
       return e
     }
   },
-  async zpracuj(text) {
+  async zpracuj(text, aktualizace = 0) {
     let split
     let monitor
+    
+    
     // pridej konec radky a udelej pole
     split = await text.split(/\n/)
-    // odstranit zaznamy monitoru
+     //ulozit posledni pridany radek do souboru pro nacitani aktualizaci dle asu
+    //opet empty string na konci , musim dat -2
+    
+    if (log.aktualizace){
+    let posledni = log.posledni
+    // Tohle takhle nebude , predelat na nejdriv najit index a pak filter podle indexu.
+    split.filter (radek=>{
+     let idx
+     
+      if (radek.split(' ')[3] = log.posledni[3]){
+
+      }
+    })
+    console.log('posledni radek', log.posledni)  
+    console.log(log.posledni[3])
+
+    }
+    // nactu posledni z minule varky
+    log.posledni = split[split.length-2].split(' ')
+    // odstranit zaznamy monitoru    
     monitor = await split.filter((radek) => {
-      {
+     
+  
+      
         let lowerr = radek.toLowerCase()
         let lpart = false
         //hladem pro kazdou hodnotu pole v monitoru, pokud najdu tam odfiltruju
@@ -47,9 +72,9 @@ const log = {
           return false
         } else return true
       }
-    })
-    //console.log(monitor)
-    //udelej reverse order, prvni je posledni v cas
+    )
+      
+    //vrat reverse order, prvni je posledni v cas
     return monitor.reverse()
   },
   zobraz(filtered) {
@@ -81,6 +106,7 @@ const log = {
   },
   obarvit(radek) {
     let radekPole = radek.split(' ')
+    let radekPoleProHledani = radekPole
     //console.log(radekPole)
     radekPole[3] = `<span class="cas">${radekPole[3]}</span>`
     if (/40+/.test(radekPole[8])) {
@@ -94,29 +120,32 @@ const log = {
     let co = this.inputTag.value
     if (co) {
       let coPole = co.split(' ')
-      console.log(coPole)
-      console.log(radekPole)
-      let idxHlEl
-
-      idxHlEl = radekPole.findIndex((e) => {
-        let part = false
-        console.log('e', e)
-        coPole.forEach((e2) => {
-          console.log('e2', e2)
-          part = e2.includes(e)
-          console.log('part', part)
-        })
-        if (part) {
-          return true
-        }
-      })
-      console.log('hledam obarveno')
-      console.log(idxHlEl)
-      radekPole[idxHlEl] = `<span class="hledat">${radekPole[idxHlEl]}</span>`
+      //console.log(coPole)
+      //console.log(radekPole)
+       let idx
+      // let eHl = {}
+      // eHl = radekPole.filter( e => e.includes(coPole));
+      // console.log('hlele', eHl.length,eHl)
+      // eHl.forEach( e => {
+      //   radekPole.value 
+      //   = `<span class="hledat">${radekPole[idxHlEl]}</span>`} )
+      
+       coPole.forEach( co => {
+       idx = radekPoleProHledani.findIndex(e=> e == co)
+       //console.log('idx',idx)
+       radekPoleProHledani[idx] = `<span class="hledat">${radekPoleProHledani[idx]}</span>`
+             }
+       )
+       //console.log('hledam obarveno')
+         radekPole = radekPoleProHledani    
+      }
+   
+      
+      return radekPole.join(' ')
     }
 
-    return radekPole.join(' ')
-  },
+   
+  ,
   zmenitPocetRadek() {
     this.log = document.querySelector('.pocet')
     console.log(this.log)
@@ -164,6 +193,7 @@ const log = {
       alert('Prosim vyplněte alespoň tři znaky')
     }
   },
+   
   async runx() {
     console.clear()
     const text = await log.nactiSoubor('access')
@@ -174,6 +204,10 @@ const log = {
     //console.log(filtered)
     await log.zobraz(filtered)
   },
+  async aktualizace() {
+    console.log('aktualizace')
+
+  }
 }
 //na zacatku pri nacteni staranky nacti soubor
 window.onload = () => log.runx()
