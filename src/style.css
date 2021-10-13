@@ -71,6 +71,7 @@ header {
 }
 
 .button {
+  padding:5px;
   margin-top: 1vw;
   margin-left: 1vw;
   border-radius: 4px;
@@ -125,6 +126,7 @@ header {
   width: 99%;
   height: 75vh;
   border-radius: 4px;
+  margin-top: 0.5vw;
   border: 2px solid rgb(74, 74, 252);
   box-shadow: 
     /* inset 0 -3em 3em rgba(0,0,0,0.1), */ 0 0 0 2px
@@ -134,7 +136,7 @@ header {
   white-space: pre-wrap;
 }
 
-.pocet {
+.pocet , .refresh {
   background-color: rgb(18, 48, 185);
 
   color: #fff;
@@ -151,6 +153,10 @@ header {
   box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
     0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
+.refresh {
+  margin-right: -3vw;
+}
+
 /* span barvy */
 .cas {
   font-weight: 600;
@@ -182,7 +188,7 @@ header {
   font-weight: 300;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1400px) {
   .button {
     font-size: 25px;
   }

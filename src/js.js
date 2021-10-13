@@ -1,11 +1,11 @@
 'use strict'
-// TODO - obarvit hledani, automaticke nacitani
+//  automaticke nacitani - ted mi to nehleda, protoze jsem prestal mazat seznam zrejme
 // ocisteni
 //refactoring, zkusit worker?
 // production veze
 //roztrhnout na objekt kreslit barvit a ostatni, mozna hledat
 
-console.clear()
+//console.clear()
 const log = {
   pocetTag: document.querySelector('.pocet'),
   inputTag: document.querySelector('.input'),
@@ -14,6 +14,8 @@ const log = {
   divLog: document.querySelector('#log'),
   posledni : 'zde bude posledni radek pro nacitani novych aktualizaci',
   aktualizace : true,
+  refreshTag: document.querySelector('.refresh'),
+  idTime : 'zde bude idtimeoutu pro zastaveni, aby se nemnozilo po zmene refreshe',
   async nactiSoubor(typ) {
     let res, text
     try {
@@ -29,33 +31,34 @@ const log = {
       return e
     }
   },
-  async zpracuj(text, aktualizace = 0) {
+  async zpracuj(text) {
     let split
     let monitor
     
     
     // pridej konec radky a udelej pole
+    
     split = await text.split(/\n/)
      //ulozit posledni pridany radek do souboru pro nacitani aktualizaci dle asu
     //opet empty string na konci , musim dat -2
     
-    if (log.aktualizace){
-    let posledni = log.posledni
-    // Tohle takhle nebude , predelat na nejdriv najit index a pak filter podle indexu.
-    split.filter (radek=>{
-     let idx
-     
-      if (radek.split(' ')[3] = log.posledni[3]){
-
-      }
+    if (this.aktualizace){
+   
+    //najdu index radku v nove varce, kde je posledni zaznam z minule varky
+    //odfiltruju pryc podle indexu ty starsi zaznamy, vratim do pole pouze nove zazanmy
+    split = split.filter ((e,i)=> {
+      // vratim true pokud je index vetsi (novejsi) nez ulozena hodnota z poslendiho nacteni
+          if (i > split.indexOf(log.posledni)){
+            return true
+          } 
     })
-    console.log('posledni radek', log.posledni)  
-    console.log(log.posledni[3])
-
-    }
-    // nactu posledni z minule varky
+  }
+     // // nactu posledni z minule varky, abych mohl pouzit v dalsim volani zpracuj 
     log.posledni = split[split.length-2].split(' ')
-    // odstranit zaznamy monitoru    
+    //nastavim aktualizace na true , aby po prvni nacteni jen aktualizoval
+    
+
+    // // odstranit zaznamy monitoru    
     monitor = await split.filter((radek) => {
      
   
@@ -82,8 +85,11 @@ const log = {
     let lpocet =
       log.pocetTag.value == 0 ? 43 : document.querySelector('.pocet').value
 
-    console.log(lpocet)
+    //console.log(lpocet)
+    //nechi promazavat textarea pokud aktualizuju
+    if (!log.aktualizace){
     this.divLog.innerHTML = ''
+    }
     //mrknu jestli mam vykresil pocet radek, nebo pocet z hledani,
     // pokud mam vic radek nez najdu tak kresli undefined
     //check jestli pole po hledani neni prazdne
@@ -195,7 +201,7 @@ const log = {
   },
    
   async runx() {
-    console.clear()
+    //console.clear()
     const text = await log.nactiSoubor('access')
     //console.log(text)
     const zpracovano = await log.zpracuj(text)
@@ -203,11 +209,20 @@ const log = {
     const filtered = await log.hledat(zpracovano, this.inputTag.value)
     //console.log(filtered)
     await log.zobraz(filtered)
-  },
-  async aktualizace() {
-    console.log('aktualizace')
 
-  }
+    
+    //console.log(log.refreshTag.value)
+    //log.refresh = document.querySelector('refresh')
+    
+    if ((log.aktualizace) && (log.refreshTag.value!=="off")){
+      log.idTime =  setTimeout(()=>{
+        console.log('bezi timeout',log.refreshTag.value)
+        
+        //pokud je v selectu defatul value=0 jako label, nastavim 5s
+        log.runx()}, (log.refreshTag.value==0)? 5000:`${log.refreshTag.value}000`)
+}
+  },
+ 
 }
 //na zacatku pri nacteni staranky nacti soubor
 window.onload = () => log.runx()
@@ -226,6 +241,17 @@ log.inputTag.addEventListener('keyup', (e) => {
 })
 log.pocetTag.addEventListener('change', () => {
   log.runx()
+})
+
+log.refreshTag.addEventListener('change', () => {
+  clearTimeout(log.idTime)
+  if (log.refreshTag.value=="off"){
+    log.aktualizace = false
+  } else{
+    log.aktualizace = true
+    log.runx()
+  }
+
 })
 
 // let part = log.nactiSoubor('access').then((text)=>{log.zpracovani(text)})
