@@ -1,9 +1,12 @@
 'use strict'
+// pokud nenajdu nic noveho tak neprekresluju coz asi mam, ale nemel bych preskocit flow?
 //  automaticke nacitani - ted mi to nehleda, protoze jsem prestal mazat seznam zrejme
 // ocisteni
 //refactoring, zkusit worker?
 // production veze
+
 //roztrhnout na objekt kreslit barvit a ostatni, mozna hledat
+
 
 //console.clear()
 const log = {
