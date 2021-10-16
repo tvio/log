@@ -18,7 +18,7 @@
       <div class="large nazev">Nginx Log</div>
     </header>
     <div id="main">
-      <div id="controls">
+      <form id="controls">
         <select class="refresh">
           <option value="0">Refresh:</option>
           <option value="off">Vypnuto</option>
@@ -27,7 +27,7 @@
           <option value="10">10s</option>
           <option value="30">30s</option>
           <option value="60">60s</option>
-          </select>
+        </select>
         <input class="input" placeholder="Hledám..." type="search" autofocus />
         <div class="button"><span>Hledat</span></div>
         <select class="pocet">
@@ -39,7 +39,7 @@
           <option value="1000">1000</option>
           <option value="5000">5000</option>
         </select>
-      </div>
+      </form>
 
       <div id="log"></div>
     </div>
