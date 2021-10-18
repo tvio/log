@@ -136,7 +136,7 @@ header {
   white-space: pre-wrap;
 }
 
-.pocet , .refresh {
+.pocet , .refresh, .soubor {
   background-color: rgb(18, 48, 185);
 
   color: #fff;

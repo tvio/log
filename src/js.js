@@ -1,6 +1,6 @@
 "use strict";
 //TODO
-
+// odebirat radky pokud mam hodne pri aktualizaci
 // predelat ty dlouhe podminky na kratke filter a for each?
 // ocisteni
 //refactoring, zkusit worker?
@@ -18,8 +18,8 @@ const log = {
   posledni: [],
   aktualizace: false,
   refreshTag: document.querySelector(".refresh"),
-  idTime:
-    "zde bude idtimeoutu pro zastaveni, aby se nemnozilo po zmene refreshe",
+  idTime: "zde bude idtimeoutu pro zastaveni, aby se nemnozilo po zmene refreshe",
+  typTag: document.querySelector(".soubor"),
   async nactiSoubor(typ) {
     let res, text;
     try {
@@ -168,7 +168,7 @@ const log = {
     //console.clear()
     //odstinim proces zpracovani, pokud z aktualizace je nula novych radku
 
-    const text = await log.nactiSoubor("access");
+    const text = await log.nactiSoubor(this.typTag.value);
     console.log("po nacteni soub akt", this.aktualizace);
 
     const zpracovano = await log.zpracuj(text);
@@ -202,6 +202,7 @@ const log = {
     let radekPole = radek.split(" ");
     let radekPoleProHledani = radekPole;
     //console.log(radekPole)
+    if (this.typTag.value=='access'){
     radekPole[3] = `<span class="cas">${radekPole[3]}</span>`;
     if (/40+/.test(radekPole[8])) {
       radekPole[8] = `<span class="red">${radekPole[8]}</span>`;
@@ -210,6 +211,12 @@ const log = {
     } else if (/50+/.test(radekPole[8])) {
       radekPole[8] = `<span class="ultrared">${radekPole[8]}</span>`;
     }
+    } else if (this.typTag.value =='error'){
+      console.log('chi obarvit')
+      radekPole[0] = `<span class="cas">${radekPole[0]}</span>`;
+      radekPole[1] = `<span class="cas">${radekPole[1]}</span>`;
+    }
+
     //pokud hledam, tak chci obarvit hledani
     let co = this.inputTag.value;
     if (co) {
@@ -260,6 +267,15 @@ log.inputTag.addEventListener("keyup", (e) => {
 });
 
 log.pocetTag.addEventListener("change", () => {
+  clearTimeout(log.idTime);
+  log.aktualizace = false;
+  log.runx();
+  if (log.refreshTag == "off") {
+    log.aktualizace = true;
+  }
+});
+
+log.typTag.addEventListener("change", () => {
   clearTimeout(log.idTime);
   log.aktualizace = false;
   log.runx();
